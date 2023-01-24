@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link type="text/css" href="{% static 'avddisk/css/styles.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<table class="table-page" border=0 cellpadding="0" cellspacing="0">
+<tr><td valign=top>
+    {% block mainmenu %}
+        <h1><a href="{% url 'home' %}">{{ title }}</a></h1>
+        {% for p in possibility %}
+    <li><a href="{% url p.url_name %}">{{ p.title }}</a></li>
+            {% endfor %}
+        {% if request.user.is_authenticated %}
+        <li class="last"><a href="{% url 'logout' %}">Выйти</a></li>
+        <li class="last">Вы зашли как <a href="{% url 'user_page' %}">{{ user.first_name }}</a></li>
+        <li class="last"><a href="{% url 'password_reset' %}">Сменить пароль</a></li>
+        {% else %}
+        <li class="last"><a href="{% url 'login' %}">Войти</a></li>
+        <li class="last"><a href="{% url 'registration' %}">Регистрация</a></li>
+        {% endif %}
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock mainmenu %}
+{% block content %}
+{% endblock %}
+</body>
+</html>
