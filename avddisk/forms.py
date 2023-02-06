@@ -27,7 +27,8 @@ class LoginForm(AuthenticationForm):
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(label='Имя', max_length=30)
-    email = forms.EmailField(label='Почта')
-    content = forms.CharField(label='Поле ввода', widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}))
+    name = forms.CharField(label='Имя', max_length=30, required=True)
+    email = forms.EmailField(label='Почта', required=True)
+    subject = forms.CharField(label='Тема', required=True)
+    content = forms.CharField(label='Поле ввода', required=True, widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}))
     # captcha = CaptchaField()

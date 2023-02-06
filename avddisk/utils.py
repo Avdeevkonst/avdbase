@@ -1,5 +1,5 @@
 from .models import *
-title = 'AvdBASE'
+title = 'AvdDisk'
 
 possibility = [{'title': "Личный кабинет", 'url_name': 'user_page'},
                {'title': "Загрузить файл", 'url_name': 'addfile'},

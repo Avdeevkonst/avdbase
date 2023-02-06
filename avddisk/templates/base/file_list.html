@@ -1,14 +1,29 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-    {% if file_list %}
-    <ul>
+{% if file_list %}
+    <table class="table" xmlns="http://www.w3.org/1999/html">
+    <thead>
+    <tr>
+    <th>Дата загрузки</th>
+    <th>Имя</th>
+    <th>Скачать</th>
+    <th>Удалить</th>
       {% for file in file_list %}
-          <li>{{ file.name }}</li>
-
+          <tr>
+          <td>{{ file.time_load }}</td>
+              <td>{{ file.name }}</td>
+              <td><a href="{% url 'download_file' file.pk %}">Скачать</a></td>
+              <td><form method="post" action="{% url 'delete_file' file.pk %}">
+                  {%  csrf_token %}
+                  <button type="submit">Удалить</button>
+              </form>
+              </td>
+          </tr>
       {% endfor %}
-    </ul>
     {% else %}
       <p>Вы не добавили не один файл</p>
     {% endif %}
+
+    </table>
 {% endblock %}

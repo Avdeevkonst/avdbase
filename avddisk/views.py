@@ -5,21 +5,40 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, PasswordResetView
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponseNotFound
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponseNotFound, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.views import View
+from django.views import View, generic
 from django.views.generic import ListView, CreateView, FormView
 from avddisk.forms import *
 from avddisk.token import account_activation_token
 from avddisk.utils import *
+from avdbase.settings import *
+import mimetypes
+import os
 
 
-class HomePage(View):
-    pass
+def download_file(request, pk):
+    filename = File.objects.get(pk=pk)
+    filepath = filename.name.path
+    path = open(filepath, 'rb')
+    mime_type, _ = mimetypes.guess_type(filepath)
+    response = HttpResponse(path, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response
+
+
+def delete_file(request, pk):
+    if request.method == 'POST':
+        file = File.objects.get(pk=pk)
+        file.delete()
+    return redirect('file')
+
+
 
 
 def start(request):
@@ -76,8 +95,6 @@ class FileListView(LoginRequiredMixin, DataMixin, ListView):
         return file_list
 
 
-
-
 class ContactFormView(DataMixin, FormView):
     form_class = ContactForm
     template_name = 'base/feedback.html'
@@ -89,8 +106,14 @@ class ContactFormView(DataMixin, FormView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def form_valid(self, form):
-        print(form.cleaned_data)
-        return redirect('home')
+        subject = form.cleaned_data['subject']
+        email = form.cleaned_data['email']
+        content = form.cleaned_data['content']
+        try:
+            send_mail(subject, content,
+                      EMAIL_HOST_USER, [email])
+        except BadHeaderError:
+            return HttpResponse('Ошибка в теме письма.')
 
 
 class LoginUser(DataMixin, LoginView):
