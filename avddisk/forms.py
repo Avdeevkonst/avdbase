@@ -1,11 +1,11 @@
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-# from captcha.fields import CaptchaField
+from captcha.fields import CaptchaField
 
 
 class AddFileForm(forms.ModelForm):
-    # captcha = CaptchaField()
+    captcha = CaptchaField()
 
     class Meta:
         model = File
@@ -13,7 +13,7 @@ class AddFileForm(forms.ModelForm):
 
 
 class RegistrationForm(UserCreationForm):
-    # captcha = CaptchaField()
+    captcha = CaptchaField()
 
     class Meta:
         model = Profile
@@ -23,7 +23,7 @@ class RegistrationForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    # captcha = CaptchaField()
+    captcha = CaptchaField()
 
 
 class ContactForm(forms.Form):
@@ -31,4 +31,4 @@ class ContactForm(forms.Form):
     email = forms.EmailField(label='Почта', required=True)
     subject = forms.CharField(label='Тема', required=True)
     content = forms.CharField(label='Поле ввода', required=True, widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}))
-    # captcha = CaptchaField()
+    captcha = CaptchaField()

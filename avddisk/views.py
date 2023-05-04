@@ -6,20 +6,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, PasswordResetView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponseNotFound, HttpResponse, Http404
+from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.views import View, generic
+from django.views import View
 from django.views.generic import ListView, CreateView, FormView
 from avddisk.forms import *
 from avddisk.token import account_activation_token
 from avddisk.utils import *
 from avdbase.settings import *
 import mimetypes
-import os
 
 
 def download_file(request, pk):
@@ -37,8 +36,6 @@ def delete_file(request, pk):
         file = File.objects.get(pk=pk)
         file.delete()
     return redirect('file')
-
-
 
 
 def start(request):

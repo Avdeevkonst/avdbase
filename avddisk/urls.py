@@ -1,8 +1,6 @@
 from django.urls import path, re_path, include
 from .views import *
-from django.views.decorators.cache import cache_page
 from django.contrib.auth import views as auth_views
-from django.conf.urls.static import static
 
 urlpatterns = [
     re_path(r'^$', start, name='home'),
