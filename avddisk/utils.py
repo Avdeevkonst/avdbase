@@ -1,10 +1,13 @@
 from .models import *
+
 title = 'AvdDisk'
 
 possibility = [{'title': "Личный кабинет", 'url_name': 'user_page'},
                {'title': "Загрузить файл", 'url_name': 'addfile'},
                {'title': "Список файлов", 'url_name': 'file'},
                {'title': "Обратная связь", 'url_name': 'info'},
+               {'title': "Новости", 'url_name': 'news'},
+               {'title': "Погода", 'url_name': 'weather'},
                ]
 
 

@@ -4,10 +4,10 @@ from avddisk.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
-
 urlpatterns = [
     path('admin', admin.site.urls),
-    path('', include('avddisk.urls')),
+    path('disk', include('avddisk.urls')),
+    path('api/', include('apicrypto.urls')),
     path('captcha/', include('captcha.urls')),
 ]
 

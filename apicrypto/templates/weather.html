@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<form>
+  <label for="name">Введите город</label>
+    <label for="city"></label><input type="text" id="city" placeholder="Москва">
+    <a href="{% url 'weather' %}">Перейти</a>
+</form>
+<h1>Погода {{ weather_dict.city }}</h1>
+<p>Температура: {{ weather_dict.temperature }}K</p>
+<p>Ощущается как: {{ weather_dict.feels_like }}K</p>
+<p>Влажность:{{ weather_dict.humidity }} %</p>
+{% endblock %}
