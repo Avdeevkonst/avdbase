@@ -7,7 +7,7 @@ possibility = [{'title': "Личный кабинет", 'url_name': 'user_page'}
                {'title': "Список файлов", 'url_name': 'file'},
                {'title': "Обратная связь", 'url_name': 'info'},
                {'title': "Новости", 'url_name': 'news'},
-               {'title': "Погода", 'url_name': 'weather'},
+               {'title': "Погода", 'url_name': 'weather_choice'},
                ]
 
 

@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <form method="POST" action="{% url 'weather' %}">
+    {% csrf_token %}
+    <label for="city">Укажите город:</label>
+    <input type="text" id="city" name="city">
+    <button type="submit">Отправить</button>
+</form>
+
+{% endblock %}
