@@ -12,6 +12,7 @@
 <tr><td>
     {% block mainmenu %}
         <h1><a href="{% url 'home' %}">{{ title }}</a></h1>
+       <a href="#" onclick="history.back();return false;">Вернуться назад</a>
         {% for p in possibility %}
     <li><a href="{% url p.url_name %}">{{ p.title }}</a></li>
             {% endfor %}

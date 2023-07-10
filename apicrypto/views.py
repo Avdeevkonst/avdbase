@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from avddisk.utils import title, possibility
 from .forms import WeatherForm
 from .utils import get_weather
@@ -8,7 +7,7 @@ from .utils import get_weather
 def weather_choice(request):
     form = WeatherForm()
     if request.method == 'POST':
-        input_value = request.POST.get('city')
+        input_value = form.cleaned_data['city']
         if form.is_valid():
             get_weather(input_value)
         else:

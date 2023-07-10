@@ -5,12 +5,13 @@ from django.contrib.auth.decorators import login_required
 from dotenv import load_dotenv
 from django.shortcuts import render
 from apicrypto.models import Weather
+from .forms import WeatherForm
 
 load_dotenv()
 
 
 @login_required
-def get_weather(request, city='moscow'):
+def get_weather(request, city):
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv("api_key_weather")}'
     response = requests.get(url)
     weather_data = response.json()

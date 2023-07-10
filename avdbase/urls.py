@@ -6,7 +6,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin', admin.site.urls),
-    path('disk', include('avddisk.urls')),
+    path('disk/', include('avddisk.urls')),
     path('api/', include('apicrypto.urls')),
     path('captcha/', include('captcha.urls')),
 ]
